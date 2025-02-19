@@ -18,6 +18,7 @@ namespace ArtClasses.Models
         public string PlanType { get; set; } // "Monthly", "Yearly"
 
         [Required]
+        [Column(TypeName = "decimal(10,2)")]
         public decimal Price { get; set; }
 
         [Required]

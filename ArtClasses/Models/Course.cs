@@ -15,6 +15,7 @@ namespace ArtClasses.Models
         public string Description { get; set; }
 
         [Required]
+        [Column(TypeName ="decimal(10,2)")]
         public decimal Price { get; set; }
 
         public Teacher Teacher { get; set; }

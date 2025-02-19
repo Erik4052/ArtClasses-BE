@@ -18,7 +18,7 @@ namespace ArtClasses.Models
 
         [Required]
         [ForeignKey("CourseId")]
-        public string CourseId { get; set; }
+        public Guid CourseId { get; set; }
 
         [Required]
         [Range(1, 5)]
