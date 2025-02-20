@@ -1,18 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ArtClasses.Models
+namespace ArtClasses.Domain.Entities
 {
-    public class CourseReview
+    public class Lesson
     {
         [Key]
         public Guid Id { get; set; }
-
-        public User User { get; set; }
-
-        [Required]
-        [ForeignKey("UserId")]
-        public Guid UserId { get; set; }
 
         public Course Course { get; set; }
 
@@ -21,10 +15,12 @@ namespace ArtClasses.Models
         public Guid CourseId { get; set; }
 
         [Required]
-        [Range(1, 5)]
-        public int Rating { get; set; } // 1-5 stars
+        [MaxLength(255)]
+        public string Title { get; set; }
 
-        public string Comment { get; set; }
+        public int Order { get; set; }
+
+        public string VideoUrl { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

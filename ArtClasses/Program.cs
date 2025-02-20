@@ -1,7 +1,19 @@
+using ArtClasses.Application.Interfaces;
+using ArtClasses.Application.MappingProfiles;
+using ArtClasses.Application.Services;
 using ArtClasses.Data;
+using ArtClasses.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Repositories
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+
+//Services
+builder.Services.AddScoped<ICourseService, CourseService>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // Add services to the container.
@@ -38,6 +50,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.MapControllers();
 
 app.MapControllers();
 

@@ -1,26 +1,29 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ArtClasses.Models
+namespace ArtClasses.Domain.Entities
 {
-    public class Enrollment
+    public class Teacher
     {
-        [Key]
         public Guid Id { get; set; }
+
         public User User { get; set; }
 
         [Required]
         [ForeignKey("UserId")]
         public Guid UserId { get; set; }
 
-        public Course Course { get; set; }
+        [Required]
+        [MaxLength(500)]
+        public string Bio { get; set; }
 
         [Required]
-        [ForeignKey("CourseId")]
-        public Guid CourseId { get; set; }
+        [MaxLength(500)]
+        public string ProfilePicture { get; set; }
 
-        public DateTime PurchaseDate { get; set; } = DateTime.UtcNow;
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-        public string Status { get; set; }
+
     }
 }

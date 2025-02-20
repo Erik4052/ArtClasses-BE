@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ArtClasses.Models
+namespace ArtClasses.Domain.Entities
 {
     public class Subscription
     {

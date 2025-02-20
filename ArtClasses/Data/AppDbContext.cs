@@ -1,4 +1,4 @@
-﻿using ArtClasses.Models;
+﻿using ArtClasses.Domain.Entities;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,15 +29,15 @@ namespace ArtClasses.Data
             // User -> CourseReview ( 1 : N )
             modelBuilder.Entity<CourseReview>()
                 .HasOne(cr => cr.User)
-                .WithOne()
-                .HasForeignKey<CourseReview>(cr => cr.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithMany()
+                .HasForeignKey(cr => cr.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Course -> CourseReview (1 : N)
             modelBuilder.Entity<CourseReview>()
                 .HasOne(cr => cr.Course)
-                .WithOne()
-                .HasForeignKey<CourseReview>(cr => cr.CourseId)
+                .WithMany()
+                .HasForeignKey(cr => cr.CourseId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Course -> Lesson (1: N)
@@ -46,7 +46,58 @@ namespace ArtClasses.Data
                 .WithMany()
                 .HasForeignKey(l => l.CourseId)
                 .OnDelete(DeleteBehavior.Cascade);
-                
+
+            // Teacher -> Course (1: N)
+            modelBuilder.Entity<Course>()
+                .HasOne(c => c.Teacher)
+                .WithMany()
+                .HasForeignKey (c => c.TeacherId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // User -> Enrollment (1:N)
+            modelBuilder.Entity<Enrollment>()
+                .HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Course -> Enrollment (1:N)
+            modelBuilder.Entity<Enrollment>()
+                .HasOne(e => e.Course)
+                .WithMany()
+                .HasForeignKey(e => e.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // User -> Subscription (1:N)
+            modelBuilder.Entity<Subscription>()
+                .HasOne(s => s.User)
+                .WithMany()
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // CourseReview -> ReviewReply (1:N)
+            modelBuilder.Entity<ReviewReply>()
+                .HasOne(rr => rr.CourseReview)
+                .WithMany()
+                .HasForeignKey(rr => rr.CourseReviewId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Teacher -> ReviewReply (1:N)
+            modelBuilder.Entity<ReviewReply>()
+                .HasOne(rr => rr.Teacher)
+                .WithMany()
+                .HasForeignKey(rr => rr.TeacherId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // User -> Notifications (1:N)
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.User)
+                .WithMany()
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            base.OnModelCreating(modelBuilder);
+            
         }
 
     }

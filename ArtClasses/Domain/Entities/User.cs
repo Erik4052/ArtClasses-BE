@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ArtClasses.Models
+namespace ArtClasses.Domain.Entities
 {
     public class User
     {

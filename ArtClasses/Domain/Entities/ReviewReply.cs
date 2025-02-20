@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ArtClasses.Models
+namespace ArtClasses.Domain.Entities
 {
     public class ReviewReply
     {
         [Key]
-        public Guid Id  { get; set; }
+        public Guid Id { get; set; }
 
         public CourseReview CourseReview { get; set; }
 
         [Required]
         [ForeignKey("CourseReviewId")]
-        public Guid ReviewId { get; set; }
+        public Guid CourseReviewId { get; set; }
 
         public Teacher Teacher { get; set; }
 

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtClasses.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250219214109_Initial_Models")]
+    [Migration("20250220181800_Initial_Models")]
     partial class Initial_Models
     {
         /// <inheritdoc />
@@ -186,6 +186,40 @@ namespace ArtClasses.Migrations
                     b.ToTable("Notifications");
                 });
 
+            modelBuilder.Entity("ArtClasses.Models.ReviewReply", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CourseReviewId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReplyText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseReviewId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("ReviewReply");
+                });
+
             modelBuilder.Entity("ArtClasses.Models.Subscription", b =>
                 {
                     b.Property<Guid>("Id")
@@ -242,7 +276,8 @@ namespace ArtClasses.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Teachers");
                 });
@@ -309,7 +344,7 @@ namespace ArtClasses.Migrations
                     b.HasOne("ArtClasses.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");
@@ -328,7 +363,7 @@ namespace ArtClasses.Migrations
                     b.HasOne("ArtClasses.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");
@@ -358,6 +393,25 @@ namespace ArtClasses.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ArtClasses.Models.ReviewReply", b =>
+                {
+                    b.HasOne("ArtClasses.Models.CourseReview", "CourseReview")
+                        .WithMany()
+                        .HasForeignKey("CourseReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ArtClasses.Models.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CourseReview");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("ArtClasses.Models.Subscription", b =>
                 {
                     b.HasOne("ArtClasses.Models.User", "User")
@@ -372,8 +426,8 @@ namespace ArtClasses.Migrations
             modelBuilder.Entity("ArtClasses.Models.Teacher", b =>
                 {
                     b.HasOne("ArtClasses.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne()
+                        .HasForeignKey("ArtClasses.Models.Teacher", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
