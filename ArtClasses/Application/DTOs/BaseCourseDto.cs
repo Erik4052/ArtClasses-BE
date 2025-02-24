@@ -2,7 +2,7 @@
 
 namespace ArtClasses.Application.DTOs
 {
-    public class CreateCourseDto
+    public class BaseCourseDto
     {
         [Required]
         public string Title { get; set; } = string.Empty;

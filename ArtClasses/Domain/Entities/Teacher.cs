@@ -15,11 +15,11 @@ namespace ArtClasses.Domain.Entities
 
         [Required]
         [MaxLength(500)]
-        public string Bio { get; set; }
+        public string Bio { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(500)]
-        public string ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; } = string.Empty;
 
         [Required]
         public DateTime CreatedAt { get; set; }

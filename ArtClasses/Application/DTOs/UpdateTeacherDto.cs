@@ -2,9 +2,11 @@
 
 namespace ArtClasses.Application.DTOs
 {
-    public class UpdateCourseDto:BaseCourseDto
+    public class UpdateTeacherDto:BaseTeacherDto
     {
+        [Required]
         public Guid Id { get; set; }
-
+        [Required]
+        public Guid UserId { get; set; }
     }
 }
