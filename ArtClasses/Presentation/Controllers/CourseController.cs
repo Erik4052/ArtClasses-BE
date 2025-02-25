@@ -1,6 +1,5 @@
 ﻿using ArtClasses.Application.DTOs;
 using ArtClasses.Application.Interfaces;
-using ArtClasses.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArtClasses.Presentation.Controllers

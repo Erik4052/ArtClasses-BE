@@ -9,9 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Repositories
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 //Services
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

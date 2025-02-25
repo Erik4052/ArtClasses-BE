@@ -9,10 +9,13 @@ namespace ArtClasses.Application.MappingProfiles
         {
             // Map Entity -> DTO
             CreateMap<Course, CourseDto>();
-
+            CreateMap<Teacher, TeacherDto>();
             // Map DTO -> Entity
             CreateMap<CreateCourseDto, Course>();
             CreateMap<UpdateCourseDto, Course>();
+            CreateMap<CreateTeacherDto, Teacher>();
+            CreateMap<UpdateTeacherDto, Teacher>();
+
 
         
         }  
